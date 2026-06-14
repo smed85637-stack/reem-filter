@@ -464,6 +464,114 @@
     width: 100%;
   }
 
+
+
+  /* Admin page */
+  .admin-nav-link {
+    background: linear-gradient(135deg, #111827, #374151);
+    color: #fff !important;
+    padding: .55rem 1rem;
+    border-radius: 999px;
+    box-shadow: 0 10px 25px -10px rgba(17,24,39,.55);
+  }
+  .admin-section {
+    background:
+      radial-gradient(circle at 15% 20%, rgba(200,163,106,.14), transparent 34%),
+      radial-gradient(circle at 85% 70%, rgba(59,130,246,.10), transparent 35%),
+      linear-gradient(135deg, #f8fafc 0%, #fff7ed 100%);
+  }
+  .admin-card {
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(200,163,106,.25);
+    border-radius: 28px;
+    box-shadow: 0 24px 60px -30px rgba(15,23,42,.34);
+  }
+  .admin-input, .admin-select, .admin-textarea {
+    width: 100%;
+    border: 2px solid rgba(200,163,106,.24);
+    background: #fff;
+    border-radius: 18px;
+    padding: .95rem 1rem;
+    outline: none;
+    font-weight: 700;
+    color: #1f2937;
+    transition: all .2s ease;
+  }
+  .admin-input:focus, .admin-select:focus, .admin-textarea:focus {
+    border-color: rgba(200,163,106,.85);
+    box-shadow: 0 0 0 4px rgba(200,163,106,.14);
+  }
+  .admin-btn {
+    border: 0;
+    border-radius: 18px;
+    padding: .9rem 1.1rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: .2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+  }
+  .admin-btn:hover { transform: translateY(-1px); }
+  .admin-btn-primary { background: linear-gradient(135deg, #c8a36a, #a68449); color: #fff; box-shadow: 0 14px 30px -14px rgba(166,132,73,.75); }
+  .admin-btn-dark { background: #111827; color: #fff; }
+  .admin-btn-danger { background: #fee2e2; color: #991b1b; }
+  .admin-btn-soft { background: #f3f4f6; color: #374151; }
+  .admin-btn-green { background: #dcfce7; color: #166534; }
+  .admin-hidden-filter { display: none !important; }
+  .admin-filter-row {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: .9rem;
+    align-items: center;
+    background: #fff;
+    border: 1px solid rgba(148,163,184,.24);
+    border-radius: 22px;
+    padding: .85rem;
+    margin-bottom: .75rem;
+  }
+  .admin-filter-thumb {
+    width: 64px;
+    height: 82px;
+    border-radius: 16px;
+    object-fit: cover;
+    background: #f3f4f6;
+    border: 1px solid rgba(200,163,106,.25);
+  }
+  .admin-filter-tools {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: .5rem;
+    margin-top: .65rem;
+  }
+  .admin-status-pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: .22rem .65rem;
+    font-size: .75rem;
+    font-weight: 900;
+    background: #ecfdf5;
+    color: #047857;
+  }
+  .admin-status-pill.hidden-status { background: #fee2e2; color: #991b1b; }
+  .admin-login-box { max-width: 520px; margin: 0 auto; }
+  .admin-panel-box { display: none; }
+  .admin-panel-box.open { display: block; }
+  .admin-preview-img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 22px;
+    background: #f8fafc;
+    border: 2px dashed rgba(200,163,106,.35);
+    padding: .4rem;
+  }
+  @media (max-width: 640px) {
+    .admin-filter-tools { grid-template-columns: 1fr; }
+  }
+
 </style>
 </head>
 <body>
@@ -486,6 +594,7 @@
         <a href="#gallery" class="text-gray-700 hover:text-amber-700 font-medium transition">المعرض</a>
         <a href="#filters-library" class="text-gray-700 hover:text-amber-700 font-medium transition">صور الفلاتر</a>
         <a href="#how" class="text-gray-700 hover:text-amber-700 font-medium transition">كيف نعمل</a>
+        <a href="#admin-panel" class="admin-nav-link font-medium transition">صفحة المدير</a>
         <a href="#contact" class="text-gray-700 hover:text-amber-700 font-medium transition">تواصل معنا</a>
       </div>
       
@@ -511,6 +620,7 @@
     <a href="#gallery" class="text-gray-700 font-medium text-lg py-2 border-b">المعرض</a>
     <a href="#filters-library" class="text-gray-700 font-medium text-lg py-2 border-b">صور الفلاتر</a>
     <a href="#how" class="text-gray-700 font-medium text-lg py-2 border-b">كيف نعمل</a>
+    <a href="#admin-panel" class="text-gray-700 font-medium text-lg py-2 border-b">صفحة المدير</a>
     <a href="#contact" class="text-gray-700 font-medium text-lg py-2 border-b">تواصل معنا</a>
     <button onclick="openWhatsApp()" class="btn-primary text-white px-5 py-3 rounded-full font-medium mt-4">اطلب الآن</button>
   </div>
@@ -1536,6 +1646,95 @@
   </div>
 </section>
 
+
+
+<!-- Admin Manager Page -->
+<section id="admin-panel" class="admin-section py-20 lg:py-28 relative overflow-hidden">
+  <div class="absolute inset-0 arabesque opacity-30"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div class="text-center mb-12 scroll-fade">
+      <p class="text-amber-700 font-black tracking-widest text-sm mb-3">صفحة المدير</p>
+      <h2 class="text-4xl lg:text-5xl font-black mb-4">
+        إدارة <span class="gradient-text arabic-display">صور الفلاتر والأسعار</span>
+      </h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">أدخل إيميل المدير والكود، ثم أضف فلتر جديد، غيّر السعر، أو احذف أي فلتر من المعرض.</p>
+    </div>
+
+    <div id="adminLoginBox" class="admin-card admin-login-box p-6 sm:p-8 scroll-fade">
+      <div class="grid gap-4">
+        <div>
+          <label class="block font-black text-gray-800 mb-3">إيميل المدير</label>
+          <input id="adminEmail" type="email" class="admin-input" placeholder="client@gmail.com" autocomplete="username">
+        </div>
+        <div>
+          <label class="block font-black text-gray-800 mb-3">كود دخول المدير</label>
+          <div class="grid sm:grid-cols-[1fr_auto] gap-3">
+            <input id="adminPassword" type="password" class="admin-input" placeholder="اكتب كود المدير" autocomplete="current-password">
+            <button type="button" class="admin-btn admin-btn-primary" onclick="adminLogin()">دخول المدير</button>
+          </div>
+        </div>
+      </div>
+      <p id="adminLoginMsg" class="text-sm mt-3 text-gray-500">إيميل المدير: client@gmail.com — الكود: 1234</p>
+    </div>
+
+    <div id="adminPanelBox" class="admin-panel-box">
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="admin-card p-6 sm:p-8 scroll-fade visible">
+          <div class="flex items-center justify-between gap-3 mb-6">
+            <div>
+              <h3 class="text-2xl font-black text-gray-900">إضافة فلتر جديد</h3>
+              <p class="text-gray-600 mt-1">ارفع صورة الفلتر واكتب الاسم والسعر بالأوقية.</p>
+            </div>
+            <span class="currency-note">MRU</span>
+          </div>
+
+          <form id="adminAddFilterForm" class="space-y-4">
+            <div>
+              <label class="block font-black text-gray-800 mb-2">اسم الفلتر</label>
+              <input id="adminNewTitle" class="admin-input" type="text" placeholder="مثال: فلتر خطوبة ذهبي" required>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-black text-gray-800 mb-2">نوع المناسبة</label>
+                <select id="adminNewCategory" class="admin-select">
+                  <option>عقد قران</option>
+                  <option>خطوبة</option>
+                  <option>زواج</option>
+                  <option>تخرج</option>
+                  <option>مناسبات أخرى</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-black text-gray-800 mb-2">السعر بالأوقية</label>
+                <input id="adminNewPrice" class="admin-input" type="number" min="0" placeholder="مثال: 100" required>
+              </div>
+            </div>
+            <div>
+              <label class="block font-black text-gray-800 mb-2">صورة الفلتر</label>
+              <input id="adminNewImage" class="admin-input" type="file" accept="image/*">
+              <p class="text-xs text-gray-500 mt-2">يمكنك إضافة صورة من الجهاز. إذا لم تضف صورة سيظهر تصميم افتراضي جميل.</p>
+            </div>
+            <img id="adminImagePreview" class="admin-preview-img hidden" alt="معاينة صورة الفلتر">
+            <button type="submit" class="admin-btn admin-btn-primary w-full">➕ إضافة الفلتر للمعرض</button>
+          </form>
+        </div>
+
+        <div class="admin-card p-6 sm:p-8 scroll-fade visible">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+            <div>
+              <h3 class="text-2xl font-black text-gray-900">إدارة الفلاتر الحالية</h3>
+              <p class="text-gray-600 mt-1">غيّر السعر أو احذف أي فلتر من المعرض.</p>
+            </div>
+            <button type="button" class="admin-btn admin-btn-soft" onclick="adminResetAll()">استرجاع الكل</button>
+          </div>
+          <div id="adminFilterList" class="max-h-[620px] overflow-auto pr-1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- Footer -->
 <footer class="bg-gray-900 text-gray-300 py-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1640,6 +1839,310 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  const ADMIN_EMAIL = 'client@gmail.com';
+  const ADMIN_PASSWORD = '1234';
+  const ADMIN_STORAGE_KEYS = {
+    hidden: 'aflater_hidden_filters_v1',
+    prices: 'aflater_price_updates_v1',
+    custom: 'aflater_custom_filters_v1'
+  };
+
+  function adminReadStore(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key)) || fallback; }
+    catch (e) { return fallback; }
+  }
+  function adminWriteStore(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); }
+    catch (e) { alert('لم يتم الحفظ، ربما حجم الصورة كبير. جرّب صورة أصغر.'); }
+  }
+  function adminEscape(text) {
+    return String(text || '').replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  }
+  function adminNormalizePrice(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return '0 أوقية';
+    return raw.includes('أوقية') ? raw : raw + ' أوقية';
+  }
+  function adminGetFiltersGrid() {
+    return document.querySelector('#filters-library .grid');
+  }
+  function adminEnsureIds() {
+    document.querySelectorAll('#filters-library .filter-product').forEach((card, index) => {
+      if (!card.dataset.filterId) card.dataset.filterId = 'base-' + (index + 1);
+    });
+  }
+  function adminCreatePlaceholderImage(title, category) {
+    const safeTitle = adminEscape(title || 'فلتر جديد');
+    const safeCategory = adminEscape(category || 'مناسبة');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 350 470">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff7ed"/><stop offset="1" stop-color="#c8a36a"/></linearGradient></defs>
+      <rect width="350" height="470" rx="34" fill="url(#g)"/>
+      <rect x="18" y="18" width="314" height="434" rx="25" fill="none" stroke="#8b6b3d" stroke-width="2.5" opacity=".65"/>
+      <circle cx="175" cy="150" r="58" fill="#ffffff" opacity=".36"/>
+      <path d="M125 155 C155 115 195 115 225 155 C205 200 145 200 125 155Z" fill="#8b6b3d" opacity=".55"/>
+      <rect x="62" y="275" width="226" height="95" rx="22" fill="#fff" opacity=".55"/>
+      <text x="175" y="64" text-anchor="middle" font-family="Tajawal, Arial" font-size="20" fill="#6b4e2e" font-weight="700">${safeCategory}</text>
+      <text x="175" y="324" text-anchor="middle" font-family="Tajawal, Arial" font-size="24" fill="#1f2937" font-weight="900">${safeTitle}</text>
+      <line x1="110" y1="342" x2="240" y2="342" stroke="#8b6b3d" stroke-width="3"/>
+      <text x="175" y="420" text-anchor="middle" font-family="Tajawal, Arial" font-size="15" fill="#6b4e2e" font-weight="700">قابل لإضافة الاسم والصورة</text>
+    </svg>`;
+    return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+  }
+  function adminBuildWhatsAppLink(title, category, price) {
+    const msg = ['السلام عليكم، أريد طلب هذا الفلتر.', 'التصميم: ' + title, 'المناسبة: ' + category, 'السعر: ' + price].join('\n');
+    return 'https://wa.me/22237929637?text=' + encodeURIComponent(msg);
+  }
+  function adminBuildFilterCard(filter) {
+    const article = document.createElement('article');
+    article.className = 'filter-product scroll-fade visible';
+    article.dataset.category = filter.category || 'مناسبات أخرى';
+    article.dataset.filterId = filter.id;
+    article.dataset.adminCustom = 'true';
+    const title = adminEscape(filter.title || 'فلتر جديد');
+    const category = adminEscape(filter.category || 'مناسبات أخرى');
+    const price = adminNormalizePrice(filter.price || '0');
+    const img = filter.image || adminCreatePlaceholderImage(title, category);
+    article.innerHTML = `
+      <div class="filter-thumb-wrap">
+        <img class="filter-thumb" src="${img}" alt="${title}">
+        <span class="filter-tag">${category}</span>
+        <span class="filter-photo-chip">يمكن إضافة صورة واسم حسب الطلب</span>
+      </div>
+      <div class="filter-body">
+        <h3 class="filter-title">${title}</h3>
+        <p class="filter-desc">فلتر مضاف من صفحة المدير، قابل للتخصيص حسب الطلب.</p>
+        <div class="filter-actions">
+          <span class="price-badge">${price}</span>
+          <a class="mini-wa-btn" href="${adminBuildWhatsAppLink(filter.title || 'فلتر جديد', filter.category || 'مناسبة', price)}" target="_blank">اطلبه</a>
+        </div>
+      </div>`;
+    return article;
+  }
+  function adminAttachCustomizeForCard(card) {
+    if (!card || card.dataset.adminCustomizeReady === 'true') return;
+    card.dataset.adminCustomizeReady = 'true';
+    const chip = card.querySelector('.filter-photo-chip');
+    const actions = card.querySelector('.filter-actions');
+    const titleEl = card.querySelector('.filter-title');
+    const title = titleEl ? titleEl.textContent.trim() : 'فلتر خاص';
+    if (chip) {
+      chip.textContent = 'اضغط لإضافة صورة واسم';
+      chip.style.cursor = 'pointer';
+      chip.addEventListener('click', () => openCustomizeModal(card));
+    }
+    if (actions && !actions.querySelector('.customize-btn')) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'customize-btn';
+      btn.textContent = 'خصصه';
+      btn.setAttribute('aria-label', 'تخصيص ' + title);
+      btn.addEventListener('click', () => openCustomizeModal(card));
+      actions.appendChild(btn);
+    }
+  }
+  function adminApplyStorage() {
+    adminEnsureIds();
+    const grid = adminGetFiltersGrid();
+    if (!grid) return;
+
+    const customFilters = adminReadStore(ADMIN_STORAGE_KEYS.custom, []);
+    customFilters.forEach(filter => {
+      if (!document.querySelector(`[data-filter-id="${CSS.escape(filter.id)}"]`)) {
+        grid.appendChild(adminBuildFilterCard(filter));
+      }
+    });
+
+    const hidden = adminReadStore(ADMIN_STORAGE_KEYS.hidden, {});
+    const prices = adminReadStore(ADMIN_STORAGE_KEYS.prices, {});
+    document.querySelectorAll('#filters-library .filter-product').forEach((card, index) => {
+      if (!card.dataset.filterId) card.dataset.filterId = 'base-' + (index + 1);
+      const id = card.dataset.filterId;
+      card.classList.toggle('admin-hidden-filter', !!hidden[id]);
+      if (prices[id]) {
+        const priceEl = card.querySelector('.price-badge');
+        if (priceEl) priceEl.textContent = prices[id];
+      }
+    });
+  }
+  function adminLogin() {
+    const emailInput = document.getElementById('adminEmail');
+    const passwordInput = document.getElementById('adminPassword');
+    const msg = document.getElementById('adminLoginMsg');
+    if (!emailInput || !passwordInput) return;
+    const emailOk = emailInput.value.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase();
+    const passwordOk = passwordInput.value.trim() === ADMIN_PASSWORD;
+    if (!emailOk || !passwordOk) {
+      if (msg) { msg.textContent = 'الإيميل أو الكود غير صحيح.'; msg.className = 'text-sm mt-3 text-red-600 font-bold'; }
+      return;
+    }
+    sessionStorage.setItem('aflater_admin_logged', 'yes');
+    document.getElementById('adminLoginBox').style.display = 'none';
+    document.getElementById('adminPanelBox').classList.add('open');
+    adminRefreshList();
+  }
+  function adminRefreshList() {
+    adminEnsureIds();
+    const list = document.getElementById('adminFilterList');
+    if (!list) return;
+    const hidden = adminReadStore(ADMIN_STORAGE_KEYS.hidden, {});
+    const cards = Array.from(document.querySelectorAll('#filters-library .filter-product'));
+    if (!cards.length) { list.innerHTML = '<p class="text-gray-500">لا توجد فلاتر حالياً.</p>'; return; }
+    list.innerHTML = '';
+    cards.forEach(card => {
+      const id = card.dataset.filterId;
+      const title = card.querySelector('.filter-title')?.textContent.trim() || 'فلتر بدون اسم';
+      const category = card.dataset.category || 'مناسبة';
+      const price = card.querySelector('.price-badge')?.textContent.trim() || '0 أوقية';
+      const img = card.querySelector('.filter-thumb')?.getAttribute('src') || '';
+      const row = document.createElement('div');
+      row.className = 'admin-filter-row';
+      row.innerHTML = `
+        <img class="admin-filter-thumb" src="${img}" alt="${adminEscape(title)}">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h4 class="font-black text-gray-900">${adminEscape(title)}</h4>
+              <p class="text-xs text-gray-500 mt-1">${adminEscape(category)} · رقم داخلي: ${adminEscape(id)}</p>
+            </div>
+            <span class="admin-status-pill ${hidden[id] ? 'hidden-status' : ''}">${hidden[id] ? 'محذوف من المعرض' : 'ظاهر في المعرض'}</span>
+          </div>
+          <div class="admin-filter-tools">
+            <input class="admin-input admin-price-input" type="text" value="${adminEscape(price).replace(' أوقية','')}" aria-label="سعر ${adminEscape(title)}">
+            <button type="button" class="admin-btn admin-btn-green admin-save-price">حفظ السعر</button>
+            <button type="button" class="admin-btn ${hidden[id] ? 'admin-btn-soft admin-restore-filter' : 'admin-btn-danger admin-delete-filter'}">${hidden[id] ? 'استرجاع' : 'حذف'}</button>
+          </div>
+        </div>`;
+      row.querySelector('.admin-save-price').addEventListener('click', () => adminSavePrice(id, row.querySelector('.admin-price-input').value));
+      const actionBtn = row.querySelector('.admin-delete-filter, .admin-restore-filter');
+      actionBtn.addEventListener('click', () => hidden[id] ? adminRestoreFilter(id) : adminDeleteFilter(id));
+      list.appendChild(row);
+    });
+  }
+  function adminSavePrice(id, value) {
+    const priceText = adminNormalizePrice(value);
+    const card = document.querySelector(`[data-filter-id="${CSS.escape(id)}"]`);
+    if (card) {
+      const priceEl = card.querySelector('.price-badge');
+      if (priceEl) priceEl.textContent = priceText;
+      const title = card.querySelector('.filter-title')?.textContent.trim() || 'فلتر';
+      const category = card.dataset.category || 'مناسبة';
+      const wa = card.querySelector('.mini-wa-btn');
+      if (wa) wa.href = adminBuildWhatsAppLink(title, category, priceText);
+    }
+    if (id.startsWith('custom-')) {
+      const filters = adminReadStore(ADMIN_STORAGE_KEYS.custom, []);
+      const item = filters.find(f => f.id === id);
+      if (item) item.price = priceText;
+      adminWriteStore(ADMIN_STORAGE_KEYS.custom, filters);
+    } else {
+      const prices = adminReadStore(ADMIN_STORAGE_KEYS.prices, {});
+      prices[id] = priceText;
+      adminWriteStore(ADMIN_STORAGE_KEYS.prices, prices);
+    }
+    adminRefreshList();
+  }
+  function adminDeleteFilter(id) {
+    if (id.startsWith('custom-')) {
+      const filters = adminReadStore(ADMIN_STORAGE_KEYS.custom, []).filter(f => f.id !== id);
+      adminWriteStore(ADMIN_STORAGE_KEYS.custom, filters);
+      const card = document.querySelector(`[data-filter-id="${CSS.escape(id)}"]`);
+      if (card) card.remove();
+    } else {
+      const hidden = adminReadStore(ADMIN_STORAGE_KEYS.hidden, {});
+      hidden[id] = true;
+      adminWriteStore(ADMIN_STORAGE_KEYS.hidden, hidden);
+      const card = document.querySelector(`[data-filter-id="${CSS.escape(id)}"]`);
+      if (card) card.classList.add('admin-hidden-filter');
+    }
+    adminRefreshList();
+  }
+  function adminRestoreFilter(id) {
+    const hidden = adminReadStore(ADMIN_STORAGE_KEYS.hidden, {});
+    delete hidden[id];
+    adminWriteStore(ADMIN_STORAGE_KEYS.hidden, hidden);
+    const card = document.querySelector(`[data-filter-id="${CSS.escape(id)}"]`);
+    if (card) card.classList.remove('admin-hidden-filter');
+    adminRefreshList();
+  }
+  function adminResetAll() {
+    if (!confirm('هل تريد استرجاع كل الفلاتر وحذف تعديلات الأسعار والفلاتر المضافة؟')) return;
+    localStorage.removeItem(ADMIN_STORAGE_KEYS.hidden);
+    localStorage.removeItem(ADMIN_STORAGE_KEYS.prices);
+    localStorage.removeItem(ADMIN_STORAGE_KEYS.custom);
+    location.reload();
+  }
+  function adminResizeImageFile(file) {
+    return new Promise((resolve, reject) => {
+      if (!file) return resolve('');
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const max = 1000;
+          let { width, height } = img;
+          if (width > max || height > max) {
+            const ratio = Math.min(max / width, max / height);
+            width = Math.round(width * ratio); height = Math.round(height * ratio);
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width; canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', .86));
+        };
+        img.onerror = () => resolve(reader.result);
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    adminApplyStorage();
+    const previewInput = document.getElementById('adminNewImage');
+    const previewImg = document.getElementById('adminImagePreview');
+    if (previewInput && previewImg) {
+      previewInput.addEventListener('change', async () => {
+        const file = previewInput.files && previewInput.files[0];
+        if (!file) { previewImg.classList.add('hidden'); return; }
+        const src = await adminResizeImageFile(file);
+        previewImg.src = src;
+        previewImg.classList.remove('hidden');
+      });
+    }
+    const form = document.getElementById('adminAddFilterForm');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('adminNewTitle').value.trim();
+        const category = document.getElementById('adminNewCategory').value.trim();
+        const price = adminNormalizePrice(document.getElementById('adminNewPrice').value.trim());
+        const file = document.getElementById('adminNewImage').files[0];
+        const image = file ? await adminResizeImageFile(file) : adminCreatePlaceholderImage(title, category);
+        const filter = { id: 'custom-' + Date.now(), title, category, price, image };
+        const filters = adminReadStore(ADMIN_STORAGE_KEYS.custom, []);
+        filters.push(filter);
+        adminWriteStore(ADMIN_STORAGE_KEYS.custom, filters);
+        const card = adminBuildFilterCard(filter);
+        adminGetFiltersGrid().appendChild(card);
+        adminAttachCustomizeForCard(card);
+        form.reset();
+        if (previewImg) { previewImg.src = ''; previewImg.classList.add('hidden'); }
+        adminRefreshList();
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+    if (sessionStorage.getItem('aflater_admin_logged') === 'yes') {
+      const login = document.getElementById('adminLoginBox');
+      const panel = document.getElementById('adminPanelBox');
+      if (login && panel) { login.style.display = 'none'; panel.classList.add('open'); adminRefreshList(); }
+    }
+  });
+</script>
 
 <script>
   function openWhatsApp() { window.open('https://wa.me/22237929637', '_blank'); }
