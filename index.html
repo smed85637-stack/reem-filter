@@ -399,39 +399,6 @@
     object-fit: cover;
     opacity: .9;
   }
-  .preview-photos-row {
-    position: absolute;
-    top: 22%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 78%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .9rem;
-  }
-  .preview-photo-box {
-    width: 40%;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    background: rgba(255,255,255,.85);
-    border: 4px solid rgba(255,255,255,.95);
-    box-shadow: 0 14px 35px -22px rgba(0,0,0,.7);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #7a5a2f;
-    font-weight: 900;
-    text-align: center;
-    padding: .6rem;
-    font-size: .95rem;
-  }
-  .preview-photo-box img { width: 100%; height: 100%; object-fit: cover; }
-  @media (max-width: 640px) {
-    .preview-photos-row { width: 84%; gap: .55rem; }
-    .preview-photo-box { width: 44%; font-size: .82rem; }
-  }
   .preview-name-box {
     position: absolute;
     left: 8%;
@@ -1620,8 +1587,8 @@
       <div class="flex items-start justify-between gap-4 mb-6">
         <div>
           <p class="text-amber-700 font-black text-sm mb-1">تخصيص الفلتر</p>
-          <h3 id="modalFilterTitle" class="text-2xl sm:text-3xl font-black text-gray-900">إضافة صورة واسم</h3>
-          <p class="text-gray-600 mt-2">اكتب الاسم وارفع الصورة لمعاينة الفلتر، ثم أرسل الطلب عبر واتساب.</p>
+          <h3 id="modalFilterTitle" class="text-2xl sm:text-3xl font-black text-gray-900">تخصيص بيانات الفلتر</h3>
+          <p class="text-gray-600 mt-2">اكتب الاسم والتاريخ والمكان، ثم أرسل الطلب عبر واتساب.</p>
         </div>
         <button type="button" onclick="closeCustomizeModal()" class="w-10 h-10 rounded-full bg-white border border-amber-200 text-gray-700 font-black">×</button>
       </div>
@@ -1633,17 +1600,12 @@
             <input id="customName" class="modal-input" type="text" placeholder="مثال: أحمد و فاطمة">
           </div>
           <div>
-            <label class="block font-black text-gray-800 mb-2">صورة الزوج</label>
-            <input id="customPhotoGroom" class="modal-input" type="file" accept="image/*">
+            <label class="block font-black text-gray-800 mb-2">التاريخ</label>
+            <input id="customDate" class="modal-input" type="text" placeholder="مثال: 12/07/2026">
           </div>
           <div>
-            <label class="block font-black text-gray-800 mb-2">صورة الزوجة</label>
-            <input id="customPhotoBride" class="modal-input" type="file" accept="image/*">
-            <p class="text-xs text-gray-500 mt-2">سيحاول الموقع مشاركة صورة الزوج وصورة الزوجة مع الطلب عبر واتساب إذا كان الجهاز يدعم ذلك، وإلا سيتم فتح واتساب مع نص الطلب وترسل الصور في المحادثة.</p>
-          </div>
-          <div>
-            <label class="block font-black text-gray-800 mb-2">تفاصيل إضافية</label>
-            <textarea id="customDetails" class="modal-input" rows="4" placeholder="اكتب التاريخ، نوع المناسبة، اللون، أو أي ملاحظة"></textarea>
+            <label class="block font-black text-gray-800 mb-2">المكان</label>
+            <input id="customPlace" class="modal-input" type="text" placeholder="مثال: نواكشوط">
           </div>
           <div class="grid sm:grid-cols-2 gap-3 pt-2">
             <button type="button" onclick="sendCustomOrder()" class="modal-action-primary">إرسال الطلب واتساب</button>
@@ -1655,12 +1617,8 @@
           <p class="font-black text-gray-800 mb-3 text-center">معاينة سريعة</p>
           <div class="preview-filter-card mx-auto max-w-sm">
             <img id="previewBg" class="preview-filter-bg" src="" alt="معاينة الفلتر">
-            <div class="preview-photos-row">
-              <div id="previewPhotoGroomBox" class="preview-photo-box">صورة<br>الزوج</div>
-              <div id="previewPhotoBrideBox" class="preview-photo-box">صورة<br>الزوجة</div>
-            </div>
             <div id="previewName" class="preview-name-box">اكتب الاسم</div>
-            <div class="preview-note-box">يمكن تعديل الألوان والتفاصيل حسب الطلب</div>
+            <div class="preview-note-box">أضف الاسم والتاريخ والمكان حسب الطلب</div>
           </div>
         </div>
       </div>
@@ -2009,12 +1967,9 @@
     document.getElementById('modalFilterTitle').textContent = selectedFilterInfo.title;
     document.getElementById('previewBg').src = selectedFilterInfo.image;
     document.getElementById('customName').value = '';
-    document.getElementById('customDetails').value = '';
-    document.getElementById('customPhotoGroom').value = '';
-    document.getElementById('customPhotoBride').value = '';
+    document.getElementById('customDate').value = '';
+    document.getElementById('customPlace').value = '';
     document.getElementById('previewName').textContent = 'اكتب الاسم';
-    document.getElementById('previewPhotoGroomBox').innerHTML = 'صورة<br>الزوج';
-    document.getElementById('previewPhotoBrideBox').innerHTML = 'صورة<br>الزوجة';
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
   }
@@ -2025,38 +1980,19 @@
     modal.setAttribute('aria-hidden', 'true');
   }
 
-  async function sendCustomOrder() {
+  function sendCustomOrder() {
     const name = document.getElementById('customName').value.trim();
-    const details = document.getElementById('customDetails').value.trim();
-    const groomInput = document.getElementById('customPhotoGroom');
-    const brideInput = document.getElementById('customPhotoBride');
-    const groomFile = groomInput && groomInput.files && groomInput.files[0] ? groomInput.files[0] : null;
-    const brideFile = brideInput && brideInput.files && brideInput.files[0] ? brideInput.files[0] : null;
+    const date = document.getElementById('customDate').value.trim();
+    const place = document.getElementById('customPlace').value.trim();
     const msg = [
       'السلام عليكم، أريد طلب فلتر مخصص.',
       'التصميم: ' + selectedFilterInfo.title,
       'المناسبة: ' + selectedFilterInfo.category,
       selectedFilterInfo.price ? 'السعر: ' + selectedFilterInfo.price : '',
-      name ? 'الاسم المطلوب: ' + name : 'الاسم المطلوب: سأرسله لاحقاً',
-      details ? 'التفاصيل: ' + details : '',
-      groomFile ? 'صورة الزوج: مرفقة.' : 'صورة الزوج: سأرسلها لاحقاً.',
-      brideFile ? 'صورة الزوجة: مرفقة.' : 'صورة الزوجة: سأرسلها لاحقاً.'
+      name ? 'الاسم المطلوب: ' + name : 'الاسم المطلوب: —',
+      date ? 'التاريخ: ' + date : 'التاريخ: —',
+      place ? 'المكان: ' + place : 'المكان: —'
     ].filter(Boolean).join('\n');
-
-    const files = [groomFile, brideFile].filter(Boolean);
-
-    try {
-      if (files.length && navigator.canShare && navigator.share) {
-        const sharePayload = { text: msg };
-        try {
-          if (navigator.canShare({ files })) sharePayload.files = files;
-        } catch (e) {}
-        await navigator.share(sharePayload);
-        return;
-      }
-    } catch (e) {
-      // fallback to WhatsApp link below
-    }
 
     window.open('https://wa.me/22237929637?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -2065,8 +2001,6 @@
     setupCustomizationButtons();
 
     const nameInput = document.getElementById('customName');
-    const groomInput = document.getElementById('customPhotoGroom');
-    const brideInput = document.getElementById('customPhotoBride');
     const modal = document.getElementById('customizerModal');
 
     if (nameInput) {
@@ -2074,24 +2008,6 @@
         document.getElementById('previewName').textContent = nameInput.value.trim() || 'اكتب الاسم';
       });
     }
-    const bindImagePreview = (input, boxId, emptyLabel) => {
-      if (!input) return;
-      input.addEventListener('change', () => {
-        const file = input.files && input.files[0];
-        const box = document.getElementById(boxId);
-        if (!file) {
-          box.innerHTML = emptyLabel;
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = e => {
-          box.innerHTML = '<img src="' + e.target.result + '" alt="الصورة المختارة">';
-        };
-        reader.readAsDataURL(file);
-      });
-    };
-    bindImagePreview(groomInput, 'previewPhotoGroomBox', 'صورة<br>الزوج');
-    bindImagePreview(brideInput, 'previewPhotoBrideBox', 'صورة<br>الزوجة');
     if (modal) {
       modal.addEventListener('click', (e) => {
         if (e.target === modal) closeCustomizeModal();
