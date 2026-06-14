@@ -1483,12 +1483,12 @@
         <div>
           <label class="block font-black text-gray-800 mb-3">كود دخول المدير</label>
           <div class="grid sm:grid-cols-[1fr_auto] gap-3">
-            <input id="adminPassword" type="password" class="admin-input" placeholder="" autocomplete="current-password">
+            <input id="adminPassword" type="password" inputmode="numeric" class="admin-input" placeholder="" autocomplete="current-password">
             <button type="button" class="admin-btn admin-btn-primary" onclick="adminLogin()">دخول المدير</button>
           </div>
         </div>
       </div>
-      <p id="adminLoginMsg" class="text-sm mt-3 text-gray-500">لن تفتح صفحة المدير إلا بعد إدخال الإيميل والكود الصحيحين.</p>
+      <p id="adminLoginMsg" class="text-sm mt-3 text-gray-500">أدخل الإيميل والكود للدخول إلى صفحة المدير.</p>
     </div>
 
     <div id="adminPanelBox" class="admin-panel-box">
@@ -1803,13 +1803,21 @@
     const previewImg = document.getElementById('adminImagePreview');
     if (previewImg) { previewImg.src = ''; previewImg.classList.add('hidden'); }
   }
+
+  function normalizeAdminCode(value) {
+    return String(value || '')
+      .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+      .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+      .replace(/\s+/g, '')
+      .trim();
+  }
   function adminLogin() {
     const emailInput = document.getElementById('adminEmail');
     const passwordInput = document.getElementById('adminPassword');
     const msg = document.getElementById('adminLoginMsg');
     if (!emailInput || !passwordInput) return;
     const emailOk = emailInput.value.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase();
-    const passwordOk = passwordInput.value.trim() === ADMIN_PASSWORD;
+    const passwordOk = normalizeAdminCode(passwordInput.value) === ADMIN_PASSWORD;
     if (!emailOk || !passwordOk) {
       if (msg) { msg.textContent = 'الإيميل أو الكود غير صحيح.'; msg.className = 'text-sm mt-3 text-red-600 font-bold'; }
       return;
@@ -2043,8 +2051,7 @@
       name ? 'الاسم المطلوب: ' + name : 'الاسم المطلوب: —',
       date ? 'التاريخ: ' + date : 'التاريخ: —',
       place ? 'المكان: ' + place : 'المكان: —'
-    ].filter(Boolean).join('
-');
+    ].filter(Boolean).join('\n');
 
     window.open('https://wa.me/22237929637?text=' + encodeURIComponent(msg), '_blank');
   }
